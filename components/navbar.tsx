@@ -5,11 +5,41 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
 const links = [
-  { href: "#about", label: "About", id: "about", accent: "hover:text-blue hover:drop-shadow-[0_0_10px_rgba(0,122,255,0.6)]" },
-  { href: "#skills", label: "Skills", id: "skills", accent: "hover:text-violet hover:drop-shadow-[0_0_10px_rgba(255,42,95,0.6)]" },
-  { href: "#projects", label: "Projects", id: "projects", accent: "hover:text-cyan hover:drop-shadow-[0_0_10px_rgba(255,149,0,0.6)]" },
-  { href: "#experience", label: "Experience", id: "experience", accent: "hover:text-blue hover:drop-shadow-[0_0_10px_rgba(0,122,255,0.6)]" },
-  { href: "#contact", label: "Contact", id: "contact", accent: "hover:text-violet hover:drop-shadow-[0_0_10px_rgba(255,42,95,0.6)]" },
+  {
+    href: "#about",
+    label: "About",
+    id: "about",
+    accent:
+      "hover:text-blue hover:drop-shadow-[0_0_10px_rgba(0,122,255,0.6)]",
+  },
+  {
+    href: "#skills",
+    label: "Skills",
+    id: "skills",
+    accent:
+      "hover:text-violet hover:drop-shadow-[0_0_10px_rgba(255,42,95,0.6)]",
+  },
+  {
+    href: "#projects",
+    label: "Projects",
+    id: "projects",
+    accent:
+      "hover:text-cyan hover:drop-shadow-[0_0_10px_rgba(255,149,0,0.6)]",
+  },
+  {
+    href: "#experience",
+    label: "Experience",
+    id: "experience",
+    accent:
+      "hover:text-blue hover:drop-shadow-[0_0_10px_rgba(0,122,255,0.6)]",
+  },
+  {
+    href: "#contact",
+    label: "Contact",
+    id: "contact",
+    accent:
+      "hover:text-violet hover:drop-shadow-[0_0_10px_rgba(255,42,95,0.6)]",
+  },
 ];
 
 export function Navbar() {
@@ -20,6 +50,7 @@ export function Navbar() {
     function onScroll() {
       setScrolled(window.scrollY > 20);
     }
+
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -39,10 +70,14 @@ export function Navbar() {
           }
         });
       },
-      { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
+      {
+        rootMargin: "-45% 0px -45% 0px",
+        threshold: 0,
+      }
     );
 
-    sections.forEach((s) => observer.observe(s));
+    sections.forEach((section) => observer.observe(section));
+
     return () => observer.disconnect();
   }, []);
 
@@ -56,18 +91,13 @@ export function Navbar() {
       }`}
     >
       <nav
-        className={`flex items-center gap-1 rounded-full px-2 py-2 transition-all duration-300 ${
+        className={`flex items-center justify-center gap-2 rounded-full px-4 py-2 transition-all duration-300 ${
           scrolled ? "glass-strong shadow-lg shadow-black/20" : ""
         }`}
       >
-        <a
-          href="#top"
-          className="mr-2 pl-3 text-sm font-semibold tracking-tight text-gradient"
-        >
-          RH
-        </a>
         {links.map((link) => {
           const isActive = active === link.id;
+
           return (
             <Button
               key={link.href}
@@ -75,16 +105,21 @@ export function Navbar() {
               variant="ghost"
               size="sm"
               magneticStrength={8}
-              className={`relative rounded-full transition-colors duration-300 ${link.accent} ${
+              className={`relative rounded-full transition-colors duration-300 ${
                 isActive ? "text-white" : "text-white/85"
-              }`}
+              } ${link.accent}`}
             >
               {link.label}
+
               {isActive && (
                 <motion.span
                   layoutId="nav-active-dot"
                   className="absolute -bottom-0.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-gradient-to-r from-blue via-violet to-cyan"
-                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 380,
+                    damping: 30,
+                  }}
                 />
               )}
             </Button>
